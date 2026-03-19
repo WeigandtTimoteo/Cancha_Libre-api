@@ -21,6 +21,11 @@ env = environ.Env()
 # Lee el archivo .env
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 FOOTBALL_API_KEY = env('FOOTBALL_API_KEY')
+BD_NAME = env('BD_NAME')
+BD_USER = env('BD_USER')
+BD_PASSWORD = env('BD_PASSWORD')
+BD_HOST = env('BD_HOST')
+BD_PORT = env('BD_PORT')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -85,8 +90,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': BD_NAME,
+        'USER': BD_USER,
+        'PASSWORD': BD_PASSWORD,
+        'HOST': BD_HOST,
+        'PORT': BD_PORT,
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
